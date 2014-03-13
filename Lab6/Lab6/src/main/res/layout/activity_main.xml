@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:context="edu.cuesta.cis207.lab6.MainActivity" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_name"
+        android:id="@+id/textName"
+        android:gravity="center_horizontal"
+        android:layout_margin="@dimen/view_margin"
+    />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textMessage"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/view_margin"
+        android:text="@string/default_message"
+     />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/message_button_text"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_margin="@dimen/view_margin"
+        android:id="@+id/buttonChange"
+        android:layout_gravity="center_horizontal" >
+        <requestFocus />
+    </Button>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:id="@+id/separator"
+        android:visibility="visible"
+        android:layout_margin="@dimen/view_margin"
+        android:background="@android:color/darker_gray"
+    />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/view_margin"
+        android:id="@+id/editMessage"
+    />
+</LinearLayout>
