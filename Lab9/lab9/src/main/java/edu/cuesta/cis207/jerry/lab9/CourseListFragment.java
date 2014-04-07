@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -54,6 +55,14 @@ public class CourseListFragment extends ListFragment {
 
             Course course = getItem(position);
             int textColor = course.isOverCapacity()? Color.RED : Color.BLACK;
+
+//            CheckBox checkBox = (CheckBox)
+//                    convertView.findViewById(R.id.course_list_check_box);
+//            checkBox.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                }
+//            });
 
             TextView textviewTitle =
                 (TextView)convertView.findViewById(R.id.course_list_item_details);

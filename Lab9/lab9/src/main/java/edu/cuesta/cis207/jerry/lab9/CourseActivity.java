@@ -1,10 +1,15 @@
 package edu.cuesta.cis207.jerry.lab9;
 
-import java.util.UUID;
-
 import android.support.v4.app.Fragment;
 
 public class CourseActivity extends SingleFragmentActivity {
+
+    public CourseActivity()
+    {
+        super(R.layout.course_fragment, R.id.fragmentContainer);
+        //super(R.layout.activity_fragment, R.id.fragmentContainer);
+    }
+
 	@Override
     protected Fragment createFragment() {
         String courseCrn = (String)getIntent()

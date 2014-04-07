@@ -13,5 +13,7 @@
     <string name="title_activity_second">Second Activity</string>
     <string name="title_activity_course">Course Details</string>
     <string name="msg_no_students">There are no more students to drop!</string>
+    <string name="add_button_name">Add Section</string>
+    <string name="delete_button_name">Delete Section(s)</string>
 
 </resources>
