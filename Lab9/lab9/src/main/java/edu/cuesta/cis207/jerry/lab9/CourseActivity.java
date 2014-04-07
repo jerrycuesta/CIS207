@@ -6,8 +6,7 @@ public class CourseActivity extends SingleFragmentActivity {
 
     public CourseActivity()
     {
-        super(R.layout.course_fragment, R.id.fragmentContainer);
-        //super(R.layout.activity_fragment, R.id.fragmentContainer);
+        super(R.layout.course_list_fragment, R.id.fragmentContainer);
     }
 
 	@Override
