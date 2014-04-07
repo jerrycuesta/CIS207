@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,7 +49,7 @@ public class CourseListFragment extends ListFragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             if (null == convertView) {
                 convertView = getActivity().getLayoutInflater()
-                    .inflate(R.layout.list_item_course, null);
+                    .inflate(R.layout.course_list_item, null);
             }
 
             Course course = getItem(position);
