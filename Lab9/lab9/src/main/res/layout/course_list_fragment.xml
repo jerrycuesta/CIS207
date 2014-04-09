@@ -6,11 +6,10 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/fragmentContainer"
     android:padding="3dp" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/listViewCourses"
         android:layout_height="fill_parent"
         android:layout_above="@+id/bottom_section"
         android:layout_width="fill_parent"
@@ -37,7 +36,8 @@
         >
 
         <Button
-            android:id="@+id/button_add"
+            style="?android:attr/buttonStyleSmall"
+            android:id="@+id/button_add_section"
             android:text="@string/add_button_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,8 @@
             />
 
         <Button
-            android:id="@+id/button_delete"
+            style="?android:attr/buttonStyleSmall"
+            android:id="@+id/button_delete_section"
             android:text="@string/delete_button_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

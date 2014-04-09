@@ -6,7 +6,6 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical"
-  android:id="@+id/fragmentContainer"
   >
 
     <!-- CRN -->
@@ -111,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_student_label"
-            android:id="@+id/button_add" />
+            android:id="@+id/button_add_section" />
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"

@@ -1,8 +1,8 @@
 package edu.cuesta.cis207.jerry.lab9;
 
+import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +69,7 @@ public class CourseFragment extends Fragment {
         mEnrolled = (TextView)v.findViewById(R.id.course_enrolled);
         mCapacity = (TextView)v.findViewById(R.id.course_capacity);
 
-        final Button buttonAdd = (Button) v.findViewById(R.id.button_add);
+        final Button buttonAdd = (Button) v.findViewById(R.id.button_add_section);
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AdjustEnrolledCount(v, +1, mCourse, mEnrolled);
