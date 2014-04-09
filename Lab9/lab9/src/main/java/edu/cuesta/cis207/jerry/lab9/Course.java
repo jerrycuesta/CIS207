@@ -9,9 +9,6 @@ public class Course {
     private Integer mEnrolled;
     private Integer mCapacity;
 
-    public Course() {
-    }
-
     public Course(  Integer crn,
                     String  id,
                     String  title,
