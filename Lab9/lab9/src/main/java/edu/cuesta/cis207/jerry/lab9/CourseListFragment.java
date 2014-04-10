@@ -1,6 +1,7 @@
 package edu.cuesta.cis207.jerry.lab9;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,8 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,6 +40,11 @@ public class CourseListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.courses_title);
+    }
+
+    private void Log(String s)
+    {
+        Log.i("CourseListFragment", s);
     }
 
     private void setAdapter()
@@ -120,7 +128,6 @@ public class CourseListFragment extends Fragment {
         alert.show();
     }
 
-
     /**
      * Handle add in button
      */
@@ -128,28 +135,136 @@ public class CourseListFragment extends Fragment {
     private void onAddPressed()
     {
         CourseDirectory courses = CourseDirectory.get();
-        HashSet<String> titles = new HashSet<String>();
+        ArrayList<String> titles = new ArrayList<String>();
 
         for (Map.Entry<String, String> e : courses.getIdsAndTitles().entrySet())
             titles.add(e.getKey() + " - " + e.getValue());
 
-        final String[] strTitles = titles.toArray(new String[titles.size()]);
-
         String cancel = getActivity().getString(R.string.button_cancel);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Select Section to Add")
-                .setItems(strTitles, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.i("CourseListFragment", "selected to add  " + strTitles[which] + ".");
+        // Get the layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.add_dialog, null);
+
+        // fields in the dialog
+        final ListView addListView = (ListView) dialogView.findViewById(R.id.listViewAdd);
+        final EditText crnView = (EditText) dialogView.findViewById(R.id.add_crn);
+        final EditText capacityView = (EditText) dialogView.findViewById(R.id.add_capacity);
+
+        final SingleHighlightAdapter adapter = new SingleHighlightAdapter(getActivity(), addListView,
+                titles, Color.YELLOW, 0xffffff);
+
+        addListView.setAdapter(adapter);
+
+        addListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View v,
+                                    int position, long id) {
+                adapter.setSelectedIndex(position);
+            }
+        });
+
+        /*
+        Inflate and set the layout for the dialog
+        Pass null as the parent view because its going in the dialog layout
+        */
+
+        class CourseValidator implements View.OnClickListener {
+            private final Dialog dialog;
+
+            public CourseValidator(Dialog dialog) {
+                this.dialog = dialog;
+            }
+
+            String error;
+            int crn;
+            int capacity;
+            String id;
+
+            boolean ValidateParameters()
+            {
+                if (!adapter.haveSelection()) {
+                    error =  "You did not select a course.";
+                    return false;
+                }
+
+                String selectedCourse = adapter.getSelectedText();
+                id = selectedCourse.split(" - ")[0];
+
+                String crnText = crnView.getText().toString();
+                if (crnText.isEmpty())
+                {
+                    error = "You did not provide a CRN.";
+                    return false;
+                }
+                else
+                {
+                    crn = Integer.parseInt(crnText);
+                    if (crn<10000 || crn > 99999)
+                    {
+                        error = "A CRN must have 5 digits.";
+                        return false;
                     }
-                })
+                }
+
+                String capacityText = capacityView.getText().toString();
+                if (capacityText.isEmpty())
+                {
+                    error = "You did not provide a capacity.";
+                    return false;
+                }
+                else
+                {
+                    capacity = Integer.parseInt(capacityText.toString());
+                    if (capacity<12 || capacity > 36)
+                    {
+                        error = "Capacity must be between 12 and 36";
+                        return false;
+                    }
+                }
+
+                if (CourseDirectory.get().hasCourse(crn))
+                {
+                    error = "Duplicate CRN " + crn + ".";
+                    return false;
+                }
+
+                return true;
+            }
+
+            @Override
+            public void onClick(View v) {
+
+                if (!ValidateParameters())
+                {
+                    Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    CourseDirectory.get().addCourse(crn, id, capacity);
+                    dialog.dismiss();
+                    setAdapter();
+                }
+            }
+        }
+
+        builder .setTitle("Add Course")
+                .setView(dialogView)
+                .setPositiveButton("Add",  new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // validation is done in the OnClickListener
+                    }})
                 .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
                 });
-        builder.show();
+        AlertDialog alertDialog =  builder.create();
+        alertDialog.show();
+        Button theButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        theButton.setOnClickListener(new CourseValidator(alertDialog));
     }
 
 
@@ -182,6 +297,11 @@ public class CourseListFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         ((CourseAdapter)listView.getAdapter()).notifyDataSetChanged();
     }
+
+
+    /**
+     * List Adapter for Course
+     */
 
     private class CourseAdapter extends ArrayAdapter<Course> {
         public CourseAdapter(ArrayList<Course> courses) {
@@ -224,5 +344,6 @@ public class CourseListFragment extends Fragment {
             return convertView;
         }
     }
+
 }
 
