@@ -1,16 +1,14 @@
 package edu.cuesta.cis207.jerry.lab9;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.UUID;
-
-import android.content.Context;
+import java.util.HashMap;
+import java.util.Map;
 
 import static junit.framework.Assert.assertNotNull;
 
 public class CourseDirectory {
     private ArrayList<Course> mCourses;
-    private HashSet<String> mTitles = new HashSet<String>();
+    private HashMap<String, String> mIdsAndTitles = new HashMap<String, String>();
 
     private static CourseDirectory sCourseDirectory;
 
@@ -18,7 +16,7 @@ public class CourseDirectory {
         mCourses = CourseData.GenerateCourses();
 
         for (Course c : mCourses)
-            mTitles.add(c.getTitle());
+            mIdsAndTitles.put(c.getId(), c.getTitle());
     }
 
     public static CourseDirectory get() {
@@ -28,8 +26,8 @@ public class CourseDirectory {
         return sCourseDirectory;
     }
 
-    public HashSet<String> getCoursesTitles() {
-        return mTitles;
+    public Map<String, String> getIdsAndTitles() {
+        return mIdsAndTitles;
     }
 
     public Course getCourse(Integer crn) {

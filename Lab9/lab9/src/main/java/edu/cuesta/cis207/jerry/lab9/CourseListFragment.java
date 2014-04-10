@@ -2,7 +2,6 @@ package edu.cuesta.cis207.jerry.lab9;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,10 +16,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Map;
 
 public class CourseListFragment extends Fragment {
 
@@ -129,14 +128,25 @@ public class CourseListFragment extends Fragment {
     private void onAddPressed()
     {
         CourseDirectory courses = CourseDirectory.get();
-        HashSet<String> titles = courses.getCoursesTitles();
+        HashSet<String> titles = new HashSet<String>();
+
+        for (Map.Entry<String, String> e : courses.getIdsAndTitles().entrySet())
+            titles.add(e.getKey() + " - " + e.getValue());
+
         final String[] strTitles = titles.toArray(new String[titles.size()]);
+
+        String cancel = getActivity().getString(R.string.button_cancel);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Select Section to Add")
                 .setItems(strTitles, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i("CourseListFragment", "selected to add  " + strTitles[which] + ".");
+                    }
+                })
+                .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
                     }
                 });
         builder.show();
@@ -194,13 +204,9 @@ public class CourseListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (checkBox.isChecked())
-                    {
                         checkedCourses.add(course.getCrn());
-                    }
                     else
-                    {
                         checkedCourses.remove(course.getCrn());
-                    }
                 }
             });
 

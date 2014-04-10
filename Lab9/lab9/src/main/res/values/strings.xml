@@ -18,5 +18,6 @@
     <string name="delete_dialog_title">Warning</string>
     <string name="delete_button_yes">Delete</string>
     <string name="delete_button_no">Cancel</string>
+    <string name="button_cancel">Cancel</string>
 
 </resources>

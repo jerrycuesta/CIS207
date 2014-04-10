@@ -84,7 +84,7 @@ public class CourseFragment extends Fragment {
         });
 
         mCrn.setText(mCourse.getCrn().toString());
-        mTitle.setText(mCourse.toString());
+        mTitle.setText(mCourse.getId() + " - " + mCourse.getTitle());
         mDescription.setText(mCourse.getDescription());
         mEnrolled.setText(mCourse.getEnrolled().toString());
         mCapacity.setText(mCourse.getCapacity().toString());
