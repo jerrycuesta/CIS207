@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/lab9" />
+            <option value="C:\local\Android\CIS207\Lab9" />
+            <option value="C:\local\Android\CIS207\Lab9\lab9" />
           </set>
         </option>
       </GradleProjectSettings>
